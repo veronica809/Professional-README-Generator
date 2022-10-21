@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
-const fs = require('fs')
+const fs = require('fs');
+const generateMarkDown = require ('./utils/generateMarkdown.js');
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -40,17 +41,60 @@ const questions = [
         name: 'github',
         message: 'Github account?'
     }
-];
+]
 
-inquirer
-    .prompt(questions) 
+//inquirer
+//    .prompt(questions) 
 
+//.then((response) =>{
+//        const portfolio = generateMarkdown(data)
+//        fs.writeFile('README', portfolio, (err)=>
+//           err ? console.error(err) : console.log('Success!'))
+//});
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(generateMarkdown, data) {}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    inquirer.prompt(questions)
+    .then((answers) =>{
+
+        console.log("antes de llamar a generateMarkDown")
+
+
+
+        generateMarkDown(answers).then(
+            (result)=>{
+                console.log("Despues de llamar a generateMarkDown")
+                fs.writeFile("ReadMe.md", result, function(err) {
+
+                    // If the code experiences any errors it will log the error to the console.
+                    if (err) {
+                      return console.log(err);
+                    }
+                  
+                    // Otherwise, it will print: "movies.txt was updated!"
+                    console.log("Readmee was created!");
+                  
+                  });
+        
+
+            }
+        )
+
+
+
+        // fs.writeFileSync('ReadMe.md', generateMarkdown, data);
+    })
+
+    // .then((generateMarkdown, data) =>{
+    //     fs.writeFileSync('ReadMe.md', generateMarkdown, data);
+    // })
+    .catch((err) => {
+        console.log(err);
+    })
+}
 
 // Function call to initialize app
 init();
