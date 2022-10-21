@@ -40,6 +40,12 @@ const questions = [
         type: 'input',
         name: 'github',
         message: 'Github account?'
+    },
+    {   
+        type: 'list',
+        name: 'license',
+        choices: ["MIT", "GPLv3", "GPL","None"],
+        message: 'Pick your license'
     }
 ]
 
@@ -64,21 +70,23 @@ function writeToFile(data) {
 function init() {
     inquirer.prompt(questions)
     .then((answers) =>{
-        console.log(answers)
+
+
+        //llamar create badge
+        //llamar create link
+        //llamar creacte section
+
+
         generateMarkDown(answers)
         .then((result)=>{
-            writeToFile(result)    
+            writeToFile(result) 
+            
+            //modify readme and add the license section 
+
             }
         )
-
-
-
-        // fs.writeFileSync('ReadMe.md', generateMarkdown, data);
     })
 
-    // .then((generateMarkdown, data) =>{
-    //     fs.writeFileSync('ReadMe.md', generateMarkdown, data);
-    // })
     .catch((err) => {
         console.log(err);
     })
