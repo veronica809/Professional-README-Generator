@@ -43,43 +43,31 @@ const questions = [
     }
 ]
 
-//inquirer
-//    .prompt(questions) 
-
-//.then((response) =>{
-//        const portfolio = generateMarkdown(data)
-//        fs.writeFile('README', portfolio, (err)=>
-//           err ? console.error(err) : console.log('Success!'))
-//});
 
 // TODO: Create a function to write README file
-function writeToFile(generateMarkdown, data) {}
+function writeToFile(data) {
+
+    fs.writeFile("ReadMe.md", data, function(err) {
+
+        // If the code experiences any errors it will log the error to the console.
+        if (err) {
+          return console.log(err);
+        }
+      
+        // Otherwise, it will print: "Readme.md was updated!"
+        console.log("Readmee was created!");
+      
+      });
+}
 
 // TODO: Create a function to initialize app
 function init() {
     inquirer.prompt(questions)
     .then((answers) =>{
-
-        console.log("antes de llamar a generateMarkDown")
-
-
-
-        generateMarkDown(answers).then(
-            (result)=>{
-                console.log("Despues de llamar a generateMarkDown")
-                fs.writeFile("ReadMe.md", result, function(err) {
-
-                    // If the code experiences any errors it will log the error to the console.
-                    if (err) {
-                      return console.log(err);
-                    }
-                  
-                    // Otherwise, it will print: "movies.txt was updated!"
-                    console.log("Readmee was created!");
-                  
-                  });
-        
-
+        console.log(answers)
+        generateMarkDown(answers)
+        .then((result)=>{
+            writeToFile(result)    
             }
         )
 
